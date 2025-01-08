@@ -1,9 +1,8 @@
 package com.java.asm;
 
 import com.java.asm.model.ClassNameChangeEntity;
-import jdk.internal.org.objectweb.asm.ClassVisitor;
-import jdk.internal.org.objectweb.asm.MethodVisitor;
-import jdk.internal.org.objectweb.asm.Opcodes;
+import org.objectweb.asm.*;
+
 
 public class ClassNameChanger extends ClassVisitor {
 

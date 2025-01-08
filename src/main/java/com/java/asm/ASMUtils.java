@@ -1,9 +1,8 @@
 package com.java.asm;
 
 import com.java.asm.model.ClassNameChangeEntity;
-import jdk.internal.org.objectweb.asm.ClassReader;
-import jdk.internal.org.objectweb.asm.ClassWriter;
-import jdk.internal.org.objectweb.asm.Opcodes;
+import org.objectweb.asm.*;
+
 
 import java.io.FileOutputStream;
 import java.net.URL;
@@ -13,8 +12,8 @@ import java.nio.file.Paths;
 
 public class ASMUtils {
     public static void asmClassPathUpdate(ClassNameChangeEntity classNameChangeEntity) throws Exception {
-        ClassLoader classLoader = classNameChangeEntity.getClass().getClassLoader();
-        URL resourceUrl = classLoader.getResource(classNameChangeEntity.getClass().getName().replace('.', '/') + ".class");
+        ClassLoader classLoader = classNameChangeEntity.getClazz().getClassLoader();
+        URL resourceUrl = classLoader.getResource(classNameChangeEntity.getClazz().getName().replace('.', '/') + ".class");
         Path path = Paths.get(resourceUrl.toURI());
 
         // 读取原始类文件
@@ -24,7 +23,7 @@ public class ASMUtils {
         ClassWriter classWriter = new ClassWriter(ClassWriter.COMPUTE_FRAMES);
 
         // 使用自定义的ClassVisitor来修改类
-        ClassNameChanger classVisitor = new ClassNameChanger(Opcodes.ASM5, classWriter, classNameChangeEntity);
+        ClassNameChanger classVisitor = new ClassNameChanger(Opcodes.ASM9, classWriter, classNameChangeEntity);
 
         // 使用ClassReader读取原始类，并通过自定义的ClassVisitor进行修改
         ClassReader classReader = new ClassReader(classBytes);

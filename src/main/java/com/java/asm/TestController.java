@@ -26,6 +26,7 @@ public class TestController {
         classNameChangeEntity.setMethodNames(Arrays.asList("testMethod"));
 
         ASMUtils.asmClassPathUpdate(classNameChangeEntity);
+        Class.forName(TestOriginalClass.class.getName());
     }
 
     @GetMapping("/test/new")
