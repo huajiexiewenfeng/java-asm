@@ -14,7 +14,7 @@ import java.nio.file.Paths;
 public class ASMUtils {
     public static void asmClassPathUpdate(ClassNameChangeEntity classNameChangeEntity) throws Exception {
         ClassLoader classLoader = classNameChangeEntity.getClass().getClassLoader();
-        URL resourceUrl = classLoader.getResource(TestOriginalClass.class.getName().replace('.', '/') + ".class");
+        URL resourceUrl = classLoader.getResource(classNameChangeEntity.getClass().getName().replace('.', '/') + ".class");
         Path path = Paths.get(resourceUrl.toURI());
 
         // 读取原始类文件
